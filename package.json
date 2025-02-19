@@ -13,6 +13,7 @@
     "@clerk/nextjs": "^6.11.3",
     "@shadcn/ui": "^0.0.4",
     "@tailwindcss/vite": "^4.0.6",
+    "@vitejs/plugin-react": "^4.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",

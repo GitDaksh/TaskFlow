@@ -1,14 +1,13 @@
-import React from 'react';
+import RootLayout from './layouts/RootLayout';
 import HomePage from './pages/HomePage';
+import './App.css';
 
-
-const App = () => {
+function App() {
   return (
-    
-    <div>
+    <RootLayout>
       <HomePage />
-    </div>
+    </RootLayout>
   );
-};
+}
 
 export default App;

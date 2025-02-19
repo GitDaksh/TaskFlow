@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { UserButton } from '@clerk/clerk-react';
 import TaskForm from '../components/TaskForm';
 import TaskItem from '../components/TaskItem';
 
@@ -93,8 +94,18 @@ const HomePage = () => {
   return (
     <div className="min-h-screen w-screen bg-gray-50">
       <header className="w-full bg-gradient-to-r from-purple-600 to-purple-800 p-6 shadow-lg">
-        <div className="max-w-[2000px] w-full mx-auto">
+        <div className="max-w-[2000px] w-full mx-auto flex justify-between items-center">
           <h1 className="text-white text-4xl font-light tracking-wide">Task Manager</h1>
+          <div className="flex items-center gap-4">
+            <UserButton 
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: 'w-10 h-10'
+                }
+              }}
+              afterSignOutUrl="/"
+            />
+          </div>
         </div>
       </header>
 
