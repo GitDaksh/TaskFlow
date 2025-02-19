@@ -92,15 +92,20 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gray-50">
-      <header className="w-full bg-gradient-to-r from-purple-600 to-purple-800 p-6 shadow-lg">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+      <header className="w-full bg-gradient-to-r from-purple-700 to-indigo-700 p-6 shadow-lg sticky top-0 z-10">
         <div className="max-w-[2000px] w-full mx-auto flex justify-between items-center">
-          <h1 className="text-white text-4xl font-light tracking-wide">Task Manager</h1>
+          <h1 className="text-white text-3xl font-bold tracking-tight flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            Task Manager Pro
+          </h1>
           <div className="flex items-center gap-4">
             <UserButton 
               appearance={{
                 elements: {
-                  userButtonAvatarBox: 'w-10 h-10'
+                  userButtonAvatarBox: 'w-10 h-10 ring-2 ring-white/20 hover:ring-white/40 transition-all'
                 }
               }}
               afterSignOutUrl="/"
@@ -110,118 +115,115 @@ const HomePage = () => {
       </header>
 
       <main className="max-w-[2000px] w-full mx-auto p-6">
-        <div className="flex w-full gap-6">
-          <div className="w-[300px] flex-shrink-0">
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <h2 className="text-xl font-medium mb-4 text-gray-800">Filters</h2>
+        <div className="flex w-full gap-6 flex-col lg:flex-row">
+          {/* Sidebar Section */}
+          <div className="w-full lg:w-80 flex-shrink-0">
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100/50 backdrop-blur-sm">
+              <h2 className="text-lg font-semibold mb-4 text-purple-900 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+                </svg>
+                Filters
+              </h2>
               <div className="space-y-2">
-                <button
-                  className={`w-full p-2.5 rounded-lg transition-all duration-200 font-medium ${
-                    filter === 'all' 
-                      ? 'bg-purple-600 text-white shadow-sm' 
-                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setFilter('all')}
-                >
-                  All Tasks
-                </button>
-                <button
-                  className={`w-full p-2.5 rounded-lg transition-all duration-200 font-medium ${
-                    filter === 'completed' 
-                      ? 'bg-purple-600 text-white shadow-sm' 
-                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setFilter('completed')}
-                >
-                  Completed
-                </button>
-                <button
-                  className={`w-full p-2.5 rounded-lg transition-all duration-200 font-medium ${
-                    filter === 'incomplete' 
-                      ? 'bg-purple-600 text-white shadow-sm' 
-                      : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setFilter('incomplete')}
-                >
-                  Incomplete
-                </button>
+                {['all', 'completed', 'incomplete'].map((f) => (
+                  <button
+                    key={f}
+                    className={`w-full p-3 rounded-xl transition-all duration-200 font-medium flex items-center gap-2
+                      ${filter === f 
+                        ? 'bg-purple-600 text-white shadow-md' 
+                        : 'bg-white text-gray-600 hover:bg-purple-50 border border-purple-100'}
+                    `}
+                    onClick={() => setFilter(f)}
+                  >
+                    <span className="capitalize">{f}</span>
+                    {filter === f && (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-auto" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
               </div>
 
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <h2 className="text-xl font-medium mb-4 text-gray-800">Statistics</h2>
+              {/* Statistics Section */}
+              <div className="mt-8 pt-6 border-t border-purple-100/50">
+                <h2 className="text-lg font-semibold mb-4 text-purple-900 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                  </svg>
+                  Statistics
+                </h2>
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                    <span className="text-gray-600">Total Tasks</span>
-                    <span className="text-gray-900 font-semibold">{tasks.length}</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-green-50 p-3 rounded-lg">
-                    <span className="text-gray-600">Completed</span>
-                    <span className="text-green-600 font-semibold">
-                      {tasks.filter(t => t.completed).length}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center bg-orange-50 p-3 rounded-lg">
-                    <span className="text-gray-600">Pending</span>
-                    <span className="text-orange-600 font-semibold">
-                      {tasks.filter(t => !t.completed).length}
-                    </span>
-                  </div>
+                  {[
+                    { label: 'Total Tasks', value: tasks.length, color: 'bg-purple-100 text-purple-800' },
+                    { label: 'Completed', value: tasks.filter(t => t.completed).length, color: 'bg-green-100 text-green-800' },
+                    { label: 'Pending', value: tasks.filter(t => !t.completed).length, color: 'bg-amber-100 text-amber-800' }
+                  ].map((stat, idx) => (
+                    <div key={idx} className={`${stat.color} p-3 rounded-xl flex items-center justify-between`}>
+                      <span className="text-sm font-medium">{stat.label}</span>
+                      <span className="font-bold text-lg">{stat.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex-1">
-            <div className="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
-              <h2 className="text-xl font-medium mb-6 text-gray-800">Add New Task</h2>
+          {/* Main Content Section */}
+          <div className="flex-1 space-y-6">
+            {/* Add Task Card */}
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100/50 backdrop-blur-sm">
+              <h2 className="text-lg font-semibold mb-4 text-purple-900">Add New Task</h2>
               <TaskForm addTask={addTask} />
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-medium text-gray-800">Tasks</h2>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-500">Sort by:</span>
-                  <div className="flex gap-2">
+            {/* Tasks Section */}
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-purple-100/50 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+                <h2 className="text-lg font-semibold text-purple-900">Your Tasks</h2>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-500 hidden sm:block">Sort by:</span>
+                  <div className="flex flex-wrap gap-2">
                     {[
-                      { key: 'createdAt', label: 'Created' },
-                      { key: 'dueDate', label: 'Due Date' },
-                      { key: 'priority', label: 'Priority' },
-                      { key: 'name', label: 'Name' }
+                      { key: 'createdAt', label: 'Created', icon: '🕒' },
+                      { key: 'dueDate', label: 'Due Date', icon: '📅' },
+                      { key: 'priority', label: 'Priority', icon: '⚠️' },
+                      { key: 'name', label: 'Name', icon: '🔤' }
                     ].map((sortOption) => (
                       <button
                         key={sortOption.key}
                         onClick={() => handleSortChange(sortOption.key)}
-                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200
+                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2
                           ${sortBy === sortOption.key
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            ? 'bg-purple-600 text-white shadow-sm'
+                            : 'bg-purple-50 text-gray-600 hover:bg-purple-100'
                           }`}
                       >
-                        <div className="flex items-center gap-1">
-                          {sortOption.label}
-                          {sortBy === sortOption.key && (
-                            <span className="text-xs">
-                              {sortOrder === 'asc' ? '↑' : '↓'}
-                            </span>
-                          )}
-                        </div>
+                        <span>{sortOption.icon}</span>
+                        {sortOption.label}
+                        {sortBy === sortOption.key && (
+                          <span className="text-xs ml-1">
+                            {sortOrder === 'asc' ? '↑' : '↓'}
+                          </span>
+                        )}
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
 
+              {/* Tasks List */}
               {filteredTasks.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-2xl">📝</span>
+                <div className="text-center py-12 space-y-4">
+                  <div className="w-24 h-24 bg-purple-50 rounded-2xl mx-auto flex items-center justify-center">
+                    <span className="text-4xl">📭</span>
                   </div>
-                  <p className="text-gray-500 text-lg">No tasks to show</p>
-                  <p className="text-gray-400 text-sm mt-1">Add a new task to get started</p>
+                  <p className="text-gray-600 font-medium">No tasks found</p>
+                  <p className="text-gray-400 text-sm">Start by adding your first task above</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {filteredTasks.map((task) => (
                     <TaskItem
                       key={task.id}
